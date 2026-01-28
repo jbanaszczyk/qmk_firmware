@@ -15,6 +15,7 @@
  */
 
 #include "quantum.h"
+#include "snled27351_spi.h"
 
 // clang-format off
 #ifdef RGB_MATRIX_ENABLE

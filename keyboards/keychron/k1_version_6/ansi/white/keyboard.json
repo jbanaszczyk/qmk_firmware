@@ -15,7 +15,7 @@
         "led_matrix": true
     },
     "led_matrix": {
-        "driver": "snled27351_spi",
+        "driver": "snled27351",
         "sleep": true,
         "animations": {
             "none": true,

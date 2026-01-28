@@ -1,1 +1,2 @@
-# This file intentionally left blank
+SRC += snled27351_spi.c
+SPI_DRIVER_REQUIRED = yes

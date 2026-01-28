@@ -20,22 +20,11 @@
 #    include "factory_test.h"
 #    include "keychron_common.h"
 #endif
-#ifdef LK_WIRELESS_ENABLE
-#    include "lkbt51.h"
-#    include "wireless.h"
-#    include "transport.h"
-#    include "keychron_wireless_common.h"
-#    include "battery.h"
-#endif
 
 #include "print.h"
 
 #define POWER_ON_LED_DURATION 3000
 static uint32_t power_on_indicator_timer;
-
-#ifdef BT_INDICATION_LED_PIN_LIST
-pin_t bt_led_pins[] = BT_INDICATION_LED_PIN_LIST;
-#endif
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (index == 0) {
@@ -46,37 +35,14 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     return true;
 }
 
-extern bool wakeup_from_lpm;
+void keyboard_post_init_kb(void) {
+    gpio_set_pin_output_push_pull(LED_CAPS_LOCK_PIN);
+    gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
 
-void early_hardware_init_post(void) {
-    if (!wakeup_from_lpm) {
-        gpio_set_pin_output_push_pull(LED_CAPS_LOCK_PIN);
-        gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
-
-        gpio_set_pin_output_push_pull(A3);
-        gpio_write_pin(A3, LED_PIN_ON_STATE);
-
-        gpio_set_pin_output_push_pull(BAT_LOW_LED_PIN);
-        gpio_write_pin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
-
-#ifdef LK_WIRELESS_ENABLE
-        gpio_write_pin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);
-        for (uint8_t i = 0; i < sizeof(bt_led_pins) / sizeof(pin_t); i++)
-            gpio_write_pin(bt_led_pins[i], BT_INDICATION_LED_ON_STATE);
-#endif
-    }
+    gpio_set_pin_output_push_pull(A3);
+    gpio_write_pin(A3, LED_PIN_ON_STATE);
 
     gpio_set_pin_input_low(B2);
-}
-
-void keyboard_post_init_kb(void) {
-
-#ifdef LK_WIRELESS_ENABLE
-    gpio_set_pin_input(BT_MODE_SELECT_PIN);
-
-    lkbt51_init(false);
-    wireless_init();
-#endif
 
     power_on_indicator_timer = timer_read32();
 #ifdef ENCODER_ENABLE
@@ -91,27 +57,10 @@ bool keychron_task_kb(void) {
             power_on_indicator_timer = 0;
 
             if (!host_keyboard_led_state().caps_lock) gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
-#ifdef LK_WIRELESS_ENABLE
-            gpio_write_pin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
-            for (uint8_t i = 0; i < sizeof(bt_led_pins) / sizeof(pin_t); i++)
-                gpio_write_pin(bt_led_pins[i], !BT_INDICATION_LED_ON_STATE);
-#endif
-
         } else {
             gpio_write_pin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
-#ifdef LK_WIRELESS_ENABLE
-            gpio_write_pin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);
-            for (uint8_t i = 0; i < sizeof(bt_led_pins) / sizeof(pin_t); i++)
-                gpio_write_pin(bt_led_pins[i], BT_INDICATION_LED_ON_STATE);
-#endif
         }
     }
 
     return true;
 }
-
-#ifdef LK_WIRELESS_ENABLE
-bool lpm_is_kb_idle(void) {
-    return power_on_indicator_timer == 0 && !factory_reset_indicating();
-}
-#endif

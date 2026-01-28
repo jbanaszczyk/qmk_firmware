@@ -19,6 +19,9 @@
 #ifdef LED_MATRIX_ENABLE
 /* LED matrix driver configuration */
 #    define LED_MATRIX_LED_COUNT 88
+
+#    define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
+
 #    define DRIVER_CS_PINS \
         { C9 }
 
@@ -35,10 +38,6 @@
 #    define LED_MATRIX_DRIVER_LOAD_ENABLE
 /* Turn off backlight on low brightness to save power */
 #    define LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL 48
-
-/* Indications */
-#    define LOW_BAT_IND_INDEX \
-        { 80 }
 
 #    define LED_MATRIX_KEYPRESSES
 #endif
