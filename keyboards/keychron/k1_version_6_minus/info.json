@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Keychron K1 Version 6 Minus",
     "manufacturer": "Keychron",
-    "url": "https://github.com/Keychron",
-    "maintainer": "Keychron",
+    "url": "https://github.com/jbanaszczyk/qmk_firmware/tree/master/keyboards/keychron/k1_version_6_minus",
+    "maintainer": "jbanaszczyk",
     "processor": "WB32F3G71",
     "bootloader": "wb32-dfu",
     "usb": {

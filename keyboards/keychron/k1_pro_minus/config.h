@@ -16,10 +16,6 @@
 
 #pragma once
 
-// turn off effects when suspended
-#define RGB_MATRIX_SLEEP
-#define LED_MATRIX_SLEEP
-
 // Shift register pins for matrix scanning (74HC595)
 #define HC595_STCP B0
 #define HC595_SHCP A1
@@ -28,10 +24,6 @@
 // Shift register column range (columns 1-16 are via shift register, column 0 is direct)
 #define HC595_START_INDEX 1
 #define HC595_END_INDEX 16
-
-// Caps lock LED
-#define LED_CAPS_LOCK_PIN A0
-#define LED_PIN_ON_STATE 1
 
 /* Indicator LEDs (accent LEDs, originally for BT/battery status) */
 #define LED_BAT_LOW_PIN A4          // Red LED (active high) - originally battery low
@@ -68,5 +60,3 @@
 #define WEAR_LEVELING_LOGICAL_SIZE 2048
 #define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2

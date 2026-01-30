@@ -18,6 +18,10 @@
 #include "keychron_task.h"
 #include "print.h"
 
+#ifndef LED_PIN_ON_STATE
+#    define LED_PIN_ON_STATE 1
+#endif
+
 #define POWER_ON_LED_DURATION 3000
 static uint32_t power_on_indicator_timer = 0;
 #ifdef RGB_MATRIX_ENABLE
@@ -26,7 +30,9 @@ static uint8_t rgb_matrix_last_mode = 0;
 
 void keyboard_post_init_kb(void) {
     power_on_indicator_timer = timer_read32();
+#ifdef LED_CAPS_LOCK_PIN
     gpio_write_pin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
+#endif
 
     // Initialize indicator LED (accent LED)
     gpio_set_pin_output_push_pull(LED_BAT_LOW_PIN);
@@ -206,12 +212,16 @@ bool keychron_task_kb(void) {
         if (timer_elapsed32(power_on_indicator_timer) > POWER_ON_LED_DURATION) {
             power_on_indicator_timer = 0;
             if (!host_keyboard_led_state().caps_lock) {
+#ifdef LED_CAPS_LOCK_PIN
                 gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
+#endif
             }
             // Turn off indicator LED after power-on duration
             gpio_write_pin(LED_BAT_LOW_PIN, !LED_BAT_LOW_ON_STATE);
         } else {
+#ifdef LED_CAPS_LOCK_PIN
             gpio_write_pin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
+#endif
         }
     }
 #ifdef RGB_MATRIX_ENABLE

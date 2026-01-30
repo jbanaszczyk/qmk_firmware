@@ -21,14 +21,6 @@
 #    define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
 #    define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
-// RGB Matrix Configuration
-#    define DRIVER_1_LED_TOTAL 47
-#    define DRIVER_2_LED_TOTAL 40
-#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
-// Set to infinit, which is use in USB mode by default
-#    define RGB_MATRIX_TIMEOUT RGB_MATRIX_TIMEOUT_INFINITE
-
 // Allow to shutdown driver to save power
 #    define RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 #    define RGB_MATRIX_DRIVER_LOAD_ENABLE
@@ -37,12 +29,6 @@
 #    define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 48
 
 #    define LOW_BAT_IND_INDEX 79
-
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECT
 
 // Use first 9 channels of LED driver
 #    define PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
