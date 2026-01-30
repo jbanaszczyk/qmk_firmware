@@ -27,6 +27,11 @@ static uint8_t rgb_matrix_last_mode = 0;
 void keyboard_post_init_kb(void) {
     power_on_indicator_timer = timer_read32();
     gpio_write_pin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
+
+    // Initialize indicator LED (accent LED)
+    gpio_set_pin_output_push_pull(LED_BAT_LOW_PIN);
+    gpio_write_pin(LED_BAT_LOW_PIN, LED_BAT_LOW_ON_STATE);  // Turn on red LED at startup
+
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_last_mode = rgb_matrix_is_enabled() ? rgb_matrix_get_mode() : 0;
 #endif
@@ -203,6 +208,8 @@ bool keychron_task_kb(void) {
             if (!host_keyboard_led_state().caps_lock) {
                 gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
             }
+            // Turn off indicator LED after power-on duration
+            gpio_write_pin(LED_BAT_LOW_PIN, !LED_BAT_LOW_ON_STATE);
         } else {
             gpio_write_pin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
         }

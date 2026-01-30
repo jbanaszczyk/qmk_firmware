@@ -24,7 +24,7 @@
         { A8, C9 }
 
 /* Scan phase of led driver */
-#    define SNLED27351_PHASE_CHANNEL MSKPHASE_9CHANNEL
+#    define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \
         { 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30 }
@@ -36,6 +36,10 @@
 #    define RGB_MATRIX_DRIVER_LOAD_ENABLE
 /* Turn off backlight on low brightness to save power */
 #    define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 48
+/* Indications */
+#    define LOW_BAT_IND_INDEX \
+        { 79 }
+
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #endif

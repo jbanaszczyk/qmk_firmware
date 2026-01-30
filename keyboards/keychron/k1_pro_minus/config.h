@@ -33,6 +33,11 @@
 #define LED_CAPS_LOCK_PIN A0
 #define LED_PIN_ON_STATE 1
 
+/* Indicator LEDs (accent LEDs, originally for BT/battery status) */
+#define LED_BAT_LOW_PIN A4          // Red LED (active high) - originally battery low
+#define LED_BAT_LOW_ON_STATE 1
+// Note: BT LED on H3 is directly connected to BT module, not controllable by MCU
+
 /*
  * Original K1 Pro hardware pins (for reference):
  *

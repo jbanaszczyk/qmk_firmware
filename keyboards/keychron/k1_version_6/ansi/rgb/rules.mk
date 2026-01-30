@@ -1,2 +1,1 @@
-SRC += snled27351_spi.c
-SPI_DRIVER_REQUIRED = yes
+# This file intentionally left blank
