@@ -55,3 +55,5 @@
 #define FN_KEY_2 MO(3)
 
 #define MATRIX_IO_DELAY 30
+
+#define RGB_MATRIX_MODE_NAME_ENABLE

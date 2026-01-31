@@ -15,14 +15,13 @@
         "layer_count": 2
     },
     "features": {
-        "bootmagic": true,
         "console": true,
         "dip_switch": true,
-        "extrakey": false,
-        "mousekey": false,
-        "nkro": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
         "sendstring": true,
-        "via": true
+        "raw_hid": true
     },
     "diode_direction": "ROW2COL",
     "indicators": {

@@ -17,15 +17,13 @@
         "layer_count": 2
     },
     "features": {
-        "bootmagic": true,
         "console": true,
         "dip_switch": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true,
-        "sendstring": true,
-        "via": true
+        "sendstring": true
     },
     "rgb_matrix": {
         "sleep": true,
