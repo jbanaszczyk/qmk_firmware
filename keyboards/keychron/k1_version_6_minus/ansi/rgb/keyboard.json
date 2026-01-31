@@ -1,14 +1,5 @@
 {
-    "usb": {
-        "pid": "0x0D10",
-        "device_version": "1.0.0"
-    },
-    "matrix_pins": {
-        "cols": ["C6", "C7", "C8", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0", "A1","A2"],
-        "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
-    },
     "indicators": {
-        "caps_lock": "A13",
         "on_state": 1
     },
     "features": {
@@ -17,6 +8,8 @@
     "rgb_matrix": {
         "driver": "custom",
         "sleep": true,
+        "timeout": 0,
+        "brightness_turn_off_val": 48,
         "animations": {
             "solid_color":                  true,
             "alphas_mods":                  false,

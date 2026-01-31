@@ -20,22 +20,16 @@
 /* RGB Matrix driver configuration */
 #    define RGB_MATRIX_LED_COUNT 87
 
-#    define DRIVER_CS_PINS \
-        { A8, C9 }
+#    define DRIVER_CS_PINS {A8, C9}
 
 /* Scan phase of led driver */
 #    define SNLED27351_PHASE_CHANNEL MSKPHASE_9CHANNEL
 /* Set LED driver current */
-#    define SNLED27351_CURRENT_TUNE \
-        { 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30 }
+#    define SNLED27351_CURRENT_TUNE {0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30}
 
-/* Set to infinit, which is use in USB mode by default */
-#    define RGB_MATRIX_TIMEOUT RGB_MATRIX_TIMEOUT_INFINITE
 /* Allow shutdown of led driver to save power */
 #    define RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 #    define RGB_MATRIX_DRIVER_LOAD_ENABLE
-/* Turn off backlight on low brightness to save power */
-#    define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 48
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #endif

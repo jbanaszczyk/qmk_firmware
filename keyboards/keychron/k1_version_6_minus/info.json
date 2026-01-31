@@ -6,7 +6,9 @@
     "processor": "WB32F3G71",
     "bootloader": "wb32-dfu",
     "usb": {
-        "vid": "0x3434"
+        "vid": "0x3434",
+        "pid": "0x0116",
+        "device_version": "1.0.6"
     },
     "build": {
         "lto": true
@@ -25,13 +27,26 @@
     },
     "diode_direction": "ROW2COL",
     "indicators": {
-        "on_state": 1
+        "on_state": 1,
+        "caps_lock": "A13"
     },
-    "dip_switch" :{
+    "matrix_size": {
+        "rows": 6,
+        "cols": 17
+    },
+    "matrix_pins": {
+        "rows": ["C12", "D2", "B3", "B4", "B5", "B6"],
+        "cols": ["C6", "C7", "C8", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0", "A1", "A2"]
+    },
+    "matrix_io_delay": 30,
+    "dip_switch": {
         "pins": ["B14"]
     },
     "eeprom": {
-        "driver": "i2c"
+        "driver": "i2c",
+        "size": 2048,
+        "page_size": 32,
+        "i2c_address": "0xA2"
     },
     "layouts": {
         "LAYOUT_ansi_87": {
