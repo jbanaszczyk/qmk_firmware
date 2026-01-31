@@ -39,24 +39,24 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 }
 */
 
-void keyboard_post_init_kb(void) {
-    // Caps lock LED - initially OFF
+void initialize_led_indicators(void) {
+    // Caps lock LED - turn ON at startup for indication
     gpio_set_pin_output_push_pull(LED_CAPS_LOCK_PIN);
     gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
 
-    // Green/Power LED (A3) - turn ON at startup (stays on permanently like original)
-    //    gpio_set_pin_output_push_pull(LED_POWER_PIN);
-    //    gpio_write_pin(LED_POWER_PIN, LED_PIN_ON_STATE);
+    // Green/Power LED (A3) - initially OFF
+    gpio_set_pin_output_push_pull(LED_POWER_PIN);
+    gpio_write_pin(LED_POWER_PIN, !LED_POWER_ON_STATE);
 
-    // Red LED (B11) - initially OFF (original only turns on with wireless enabled)
-    //    gpio_set_pin_output_push_pull(LED_BAT_LOW_PIN);
-    //    gpio_write_pin(LED_BAT_LOW_PIN, !LED_BAT_LOW_ON_STATE);
+    // Blue LED (B15) - initially OFF
+    gpio_set_pin_output_push_pull(LED_INDICATOR_PIN);
+    gpio_write_pin(LED_INDICATOR_PIN, !LED_INDICATOR_ON_STATE);
+}
+void keyboard_post_init_kb(void) {
+    initialize_led_indicators();
+    gpio_write_pin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
 
-    // Blue LED (B15) - turn ON at startup for power-on indication
-    //    gpio_set_pin_output_push_pull(LED_INDICATOR_PIN);
-    //    gpio_write_pin(LED_INDICATOR_PIN, LED_INDICATOR_ON_STATE);
-
-    //    gpio_set_pin_input_low(B2);
+    gpio_set_pin_input_low(B2);
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_last_mode = rgb_matrix_is_enabled() ? rgb_matrix_get_mode() : 0;
@@ -68,20 +68,7 @@ void keyboard_post_init_kb(void) {
 
 bool keychron_task_kb(void) {
     if (power_on_indicator_timer) {
-        if (timer_elapsed32(power_on_indicator_timer) > POWER_ON_LED_DURATION) {
-            power_on_indicator_timer = 0;
-
-            if (!host_keyboard_led_state().caps_lock) gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
-
-            // Turn off blue indicator LED after power-on duration
-            //            gpio_write_pin(LED_INDICATOR_PIN, !LED_INDICATOR_ON_STATE);
-
-            // Ensure Green/Power LED (A3) is turned ON and stays ON
-            //            gpio_write_pin(LED_POWER_PIN, LED_PIN_ON_STATE);
-
-            // Log for debugging
-            uprintf("Power-on duration finished. BLE off, Green on.\n");
-        } else {
+        if (timer_elapsed32(power_on_indicator_timer) <= POWER_ON_LED_DURATION) {
             gpio_write_pin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
 
             static uint32_t last_log = 0;
@@ -89,6 +76,14 @@ bool keychron_task_kb(void) {
                 last_log = timer_read32();
                 uprintf("Power-on timer: %lu\n", timer_elapsed32(power_on_indicator_timer));
             }
+        } else {
+            power_on_indicator_timer = 0;
+
+            if (!host_keyboard_led_state().caps_lock) {
+                gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
+            }
+
+            uprintf("Power-on duration finished.\n");
         }
     }
 
@@ -96,10 +91,17 @@ bool keychron_task_kb(void) {
         uint8_t current_mode = rgb_matrix_get_mode();
         if (current_mode != rgb_matrix_last_mode) {
             rgb_matrix_last_mode = current_mode;
-            uprintf("rgb matrix mode changed: %s\n", rgb_matrix_get_mode_name(current_mode));
-
+            dprintf("rgb matrix mode changed: %s\n", rgb_matrix_get_mode_name(current_mode));
         }
     }
 
+    return true;
+}
+
+bool process_record_keychron_kb(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        if (keycode == KC_F12) {
+        }
+    }
     return true;
 }

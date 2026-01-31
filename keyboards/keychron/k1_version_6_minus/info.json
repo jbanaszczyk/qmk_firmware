@@ -30,6 +30,16 @@
         "on_state": 1,
         "caps_lock": "A13"
     },
+    "led_indicators": {
+        "green": {
+            "pin": "A3",
+            "on_state": 0
+        },
+        "blue": {
+            "pin": "B15",
+            "on_state": 0
+        }
+    },
     "matrix_size": {
         "rows": 6,
         "cols": 17
