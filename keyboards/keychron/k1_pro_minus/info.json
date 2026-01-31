@@ -23,7 +23,6 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "raw": true,
         "rgb_matrix": true,
         "sendstring": true,
         "via": true

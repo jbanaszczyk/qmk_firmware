@@ -6,6 +6,7 @@
         "driver": "snled27351",
         "split_count": [47, 40],
         "timeout": 0,
+        "sleep": true,
         "animations": {
             "solid_color": true,
             "alphas_mods": true,

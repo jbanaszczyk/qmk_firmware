@@ -8,14 +8,21 @@
     "usb": {
         "vid": "0x3434"
     },
+    "build": {
+        "lto": true
+    },
+    "dynamic_keymap": {
+        "layer_count": 2
+    },
     "features": {
         "bootmagic": true,
-        "extrakey": true,
-        "mousekey": true,
+        "console": true,
         "dip_switch": true,
-        "nkro": true,
-        "raw": true,
-        "sendstring": true
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false,
+        "sendstring": true,
+        "via": true
     },
     "diode_direction": "ROW2COL",
     "indicators": {
@@ -23,9 +30,6 @@
     },
     "dip_switch" :{
         "pins": ["B14"]
-    },
-    "dynamic_keymap": {
-        "layer_count": 4
     },
     "eeprom": {
         "driver": "i2c"
